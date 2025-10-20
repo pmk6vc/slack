@@ -43,9 +43,13 @@ export const up = (pgm: MigrationBuilder) => {
       notNull: true,
       references: '"users"',
       onDelete: "CASCADE",
-    },
+    }
   });
+  pgm.addConstraint("channel_members", "channel_members_pkey", {
+    primaryKey: ["channel_id", "user_id"],
+  })
   pgm.createIndex("channel_members", ["channel_id", "user_id"]);
+
 };
 
 export async function down(pgm: MigrationBuilder): Promise<void> {
