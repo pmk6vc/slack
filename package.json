@@ -9,11 +9,10 @@
     "prettier:check": "npx prettier -c .",
     "prettier:fix": "npx prettier --write .",
     "lint": "npx eslint .",
-    "prebuild": "npm run lint",
+    "prebuild": "npm run prettier:check && npm run lint",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node .",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "start": "node ."
   },
   "keywords": [],
   "author": "",
