@@ -84,7 +84,7 @@ export const up = (pgm: MigrationBuilder) => {
       notNull: true,
       default: pgm.func("current_timestamp"),
     },
-  })
+  });
   pgm.createIndex("messages", ["message_id"]);
   pgm.createIndex("messages", ["channel_id", "createdAt"]);
 };
