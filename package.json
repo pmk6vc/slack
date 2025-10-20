@@ -12,17 +12,9 @@
     "prebuild": "npm run prettier:check && npm run lint",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node ."
+    "start": "node .",
+    "start:dev": "npm run prestart && nodemon src/index.ts"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*": "npm run prettier:fix"
-  },
-
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -35,8 +27,7 @@
     "@types/node": "^24.8.1",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.2.4",
+    "nodemon": "^3.1.10",
     "prettier": "3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "ts-node-dev": "^2.0.0",
