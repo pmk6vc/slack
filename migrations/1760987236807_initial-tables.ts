@@ -59,7 +59,6 @@ export const up = (pgm: MigrationBuilder) => {
   pgm.createTable("messages", {
     message_id: {
       type: "uuid",
-      primaryKey: true,
       default: new PgLiteral("uuid_generate_v4()"),
       notNull: true,
     },
@@ -84,6 +83,10 @@ export const up = (pgm: MigrationBuilder) => {
       notNull: true,
       default: pgm.func("current_timestamp"),
     },
+  });
+  // Deliberately including channel ID in primary key because Citus needs shard key in primary key
+  pgm.addConstraint("messages", "messages_pkey", {
+    primaryKey: ["message_id", "channel_id"],
   });
   pgm.createIndex("messages", ["message_id"]);
   pgm.createIndex("messages", ["channel_id", "createdAt"]);

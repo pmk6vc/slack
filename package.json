@@ -17,7 +17,7 @@
     "prestart": "npm run build",
     "start": "node .",
     "start:dev": "npm run prestart && nodemon src/index.ts",
-    "start:docker": "docker compose up --build --force-recreate --detach",
+    "start:docker": "docker compose -p slack up --build --force-recreate --detach",
     "prepare": "husky"
   },
   "keywords": [],
