@@ -1,7 +1,7 @@
 import PostgresConfig from "./PostgresConfig";
 
 export default class LocalDockerPostgresConfig extends PostgresConfig {
-  static override getInstance(): LocalDockerPostgresConfig {
+  static override async getInstance(): Promise<LocalDockerPostgresConfig> {
     return super.getInstance({
       username: process.env.POSTGRES_USER!,
       password: process.env.POSTGRES_PASSWORD!,

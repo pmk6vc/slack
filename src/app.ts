@@ -11,4 +11,6 @@ export const buildApp = (pgConfig: PostgresConfig) => {
   // Attach routers in order of evaluation
   app.use("/ping", HealthCheckRouter);
   app.use("/channels", createChannelsRouter(pgConfig));
+
+  return app;
 };
