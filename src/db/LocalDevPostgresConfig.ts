@@ -1,23 +1,27 @@
-import { PostgreSqlContainer } from "@testcontainers/postgresql";
+import {
+  PostgreSqlContainer,
+  type StartedPostgreSqlContainer,
+} from "@testcontainers/postgresql";
 import { runner as migrate } from "node-pg-migrate";
 import path from "path";
 import PostgresConfig from "./PostgresConfig.js";
 
 export default class LocalDevPostgresConfig extends PostgresConfig {
+  private static startedContainer?: StartedPostgreSqlContainer;
   static override async getInstance(): Promise<LocalDevPostgresConfig> {
     if (!LocalDevPostgresConfig.instance) {
       // Start container
       console.log("Starting local Postgres container for development...");
-      const container = await new PostgreSqlContainer(
+      LocalDevPostgresConfig.startedContainer = await new PostgreSqlContainer(
         "citusdata/citus:13.0.3",
       ).start();
       console.log("Local Postgres container started.");
       LocalDevPostgresConfig.instance = new LocalDevPostgresConfig(
-        container.getUsername(),
-        container.getPassword(),
-        container.getHost(),
-        container.getPort(),
-        container.getDatabase(),
+        LocalDevPostgresConfig.startedContainer.getUsername(),
+        LocalDevPostgresConfig.startedContainer.getPassword(),
+        LocalDevPostgresConfig.startedContainer.getHost(),
+        LocalDevPostgresConfig.startedContainer.getPort(),
+        LocalDevPostgresConfig.startedContainer.getDatabase(),
       );
 
       // Run migrations
@@ -40,5 +44,13 @@ export default class LocalDevPostgresConfig extends PostgresConfig {
     }
 
     return LocalDevPostgresConfig.instance;
+  }
+
+  override async closePool(): Promise<void> {
+    await super.closePool();
+    if (LocalDevPostgresConfig.startedContainer) {
+      await LocalDevPostgresConfig.startedContainer.stop();
+      LocalDevPostgresConfig.startedContainer = undefined;
+    }
   }
 }
