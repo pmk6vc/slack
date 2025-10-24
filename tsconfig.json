@@ -19,7 +19,7 @@
     "noEmit": true,
     "sourceMap": true,
     "useDefineForClassFields": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
