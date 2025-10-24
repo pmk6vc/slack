@@ -53,6 +53,7 @@ services:
       POSTGRES_PORT: "${POSTGRES_PORT}"
       POSTGRES_DB: "${POSTGRES_DB}"
       PORT: "${PORT}"
+      NODE_CONFIG_ENV: "local-docker"
     ports: ["3000:${PORT}"]
 
 volumes:
