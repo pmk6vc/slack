@@ -1,4 +1,5 @@
 services:
+  # Citus Cluster Services
   master:
     container_name: "${COMPOSE_PROJECT_NAME:-citus}_master"
     image: "citusdata/citus:13.0.3"
@@ -36,5 +37,23 @@ services:
       - healthcheck-volume:/healthcheck
     depends_on: [master]
     environment: *AUTH
+
+    # Application Services
+  chat-service:
+    container_name: "${COMPOSE_PROJECT_NAME:-slack}_chat_service"
+    image: "chat-service:latest"
+    depends_on: [manager]
+    build:
+      context: .
+      args:
+        PORT: "${PORT:-3000}"
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_PORT: "${POSTGRES_PORT}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      PORT: "${PORT}"
+    ports: ["3000:${PORT}"]
+
 volumes:
   healthcheck-volume:

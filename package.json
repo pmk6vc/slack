@@ -17,7 +17,7 @@
     "prestart": "npm run build",
     "start": "node .",
     "start:docker": "docker compose -p slack up --build --force-recreate --detach",
-    "prepare": "husky"
+    "prepare": "if [ \"$HUSKY\" != \"0\" ]; then husky; else echo 'Ignoring Husky in CI'; fi"
   },
   "keywords": [],
   "author": "",
