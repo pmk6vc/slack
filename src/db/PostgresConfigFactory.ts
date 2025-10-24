@@ -1,6 +1,6 @@
-import LocalDevPostgresConfig from "./LocalDevPostgresConfig";
-import LocalDockerPostgresConfig from "./LocalDockerPostgresConfig";
-import PostgresConfig from "./PostgresConfig";
+import LocalDevPostgresConfig from "./LocalDevPostgresConfig.js";
+import LocalDockerPostgresConfig from "./LocalDockerPostgresConfig.js";
+import PostgresConfig from "./PostgresConfig.js";
 
 export default class PostgresConfigFactory {
   static async getPostgresConfig(): Promise<PostgresConfig> {

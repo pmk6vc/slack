@@ -1,5 +1,5 @@
-import { buildApp } from "./app";
-import PostgresConfigFactory from "./db/PostgresConfigFactory";
+import { buildApp } from "./app.js";
+import PostgresConfigFactory from "./db/PostgresConfigFactory.js";
 
 const pgConfig = await PostgresConfigFactory.getPostgresConfig();
 const app = buildApp(pgConfig);

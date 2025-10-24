@@ -1,4 +1,4 @@
-import PostgresConfig from "./PostgresConfig";
+import PostgresConfig from "./PostgresConfig.js";
 
 export default class LocalDockerPostgresConfig extends PostgresConfig {
   static override async getInstance(): Promise<LocalDockerPostgresConfig> {

@@ -1,5 +1,5 @@
 import { PostgreSqlContainer } from "@testcontainers/postgresql";
-import PostgresConfig from "./PostgresConfig";
+import PostgresConfig from "./PostgresConfig.js";
 
 export default class LocalDevPostgresConfig extends PostgresConfig {
   static override async getInstance(): Promise<LocalDevPostgresConfig> {

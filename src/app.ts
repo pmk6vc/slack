@@ -1,7 +1,7 @@
 import express from "express";
-import createChannelsRouter from "./api/ChannelsRouter";
-import HealthCheckRouter from "./api/HealthCheckRouter";
-import type PostgresConfig from "./db/PostgresConfig";
+import createChannelsRouter from "./api/ChannelsRouter.js";
+import HealthCheckRouter from "./api/HealthCheckRouter.js";
+import type PostgresConfig from "./db/PostgresConfig.js";
 
 const app = express();
 export const buildApp = (pgConfig: PostgresConfig) => {
