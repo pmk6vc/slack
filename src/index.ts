@@ -13,7 +13,7 @@ app.listen(port, () => {
 const shutdown = async () => {
   console.log("Shutting down, closing DB pool...");
   try {
-    await pgConfig.closePool();
+    await pgConfig.close();
   } catch (err) {
     console.error("Error closing DB pool:", err);
   } finally {

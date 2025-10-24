@@ -59,7 +59,7 @@ export default class PostgresConfig {
     return `postgresql://${this.username}:${this.password}@${this.host}:${this.port}/${this.database}`;
   }
 
-  async closePool(): Promise<void> {
+  async close(): Promise<void> {
     await this.databasePool.end();
   }
 }

@@ -46,8 +46,9 @@ export default class LocalDevPostgresConfig extends PostgresConfig {
     return LocalDevPostgresConfig.instance;
   }
 
-  override async closePool(): Promise<void> {
-    await super.closePool();
+  override async close(): Promise<void> {
+    // TODO: Figure out duplicate close issue
+    await super.close();
     if (LocalDevPostgresConfig.startedContainer) {
       await LocalDevPostgresConfig.startedContainer.stop();
       LocalDevPostgresConfig.startedContainer = undefined;
