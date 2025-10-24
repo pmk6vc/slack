@@ -11,11 +11,11 @@ export default class PostgresConfig {
   protected readonly databasePool: Pool;
 
   private constructor(
-      username: string,
-      password: string,
-      host: string,
-      port: number,
-      database: string,
+    username: string,
+    password: string,
+    host: string,
+    port: number,
+    database: string,
   ) {
     this.username = username;
     this.password = password;
@@ -41,11 +41,11 @@ export default class PostgresConfig {
     if (!PostgresConfig.instance) {
       if (config) {
         PostgresConfig.instance = new PostgresConfig(
-            config.username,
-            config.password,
-            config.host,
-            config.port,
-            config.database,
+          config.username,
+          config.password,
+          config.host,
+          config.port,
+          config.database,
         );
       } else {
         const username = process.env.POSTGRES_USER;
@@ -55,16 +55,16 @@ export default class PostgresConfig {
         const database = process.env.POSTGRES_DB;
         if (!username || !password || !portStr || !database) {
           throw new Error(
-              "PostgresConfig not initialized: provide config to getInstance or set env vars POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB and POSTGRES_PORT",
+            "PostgresConfig not initialized: provide config to getInstance or set env vars POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB and POSTGRES_PORT",
           );
         }
         const port = Number(portStr);
         PostgresConfig.instance = new PostgresConfig(
-            username,
-            password,
-            host,
-            port,
-            database,
+          username,
+          password,
+          host,
+          port,
+          database,
         );
       }
     }
