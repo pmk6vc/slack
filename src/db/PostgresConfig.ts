@@ -31,13 +31,13 @@ export default class PostgresConfig {
     });
   }
 
-  static getInstance(config: {
+  static async getInstance(config: {
     username: string;
     password: string;
     host: string;
     port: number;
     database: string;
-  }): PostgresConfig {
+  }): Promise<PostgresConfig> {
     if (!PostgresConfig.instance) {
       PostgresConfig.instance = new PostgresConfig(
         config.username,
