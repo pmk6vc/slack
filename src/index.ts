@@ -1,7 +1,7 @@
 import { buildApp } from "./app";
 import PostgresConfigFactory from "./db/PostgresConfigFactory";
 
-const pgConfig = await PostgresConfigFactory.getPostgresConfig()
+const pgConfig = await PostgresConfigFactory.getPostgresConfig();
 const app = buildApp(pgConfig);
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
