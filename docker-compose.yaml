@@ -38,7 +38,7 @@ services:
     depends_on: [master]
     environment: *AUTH
 
-    # Application Services
+  # Application Services
   chat-service:
     container_name: "${COMPOSE_PROJECT_NAME:-slack}_chat_service"
     image: "chat-service:latest"
