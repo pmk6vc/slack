@@ -1,7 +1,7 @@
 import express from "express";
+import createChannelsRouter from "./api/ChannelsRouter";
 import HealthCheckRouter from "./api/HealthCheckRouter";
 import type PostgresConfig from "./db/PostgresConfig";
-import createChannelsRouter from "./api/ChannelsRouter";
 
 const app = express();
 export const buildApp = (pgConfig: PostgresConfig) => {
@@ -10,5 +10,5 @@ export const buildApp = (pgConfig: PostgresConfig) => {
 
   // Attach routers in order of evaluation
   app.use("/ping", HealthCheckRouter);
-  app.use("/channels", createChannelsRouter(pgConfig))
+  app.use("/channels", createChannelsRouter(pgConfig));
 };
