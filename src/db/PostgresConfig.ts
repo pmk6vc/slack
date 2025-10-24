@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 
 export default class PostgresConfig {
-  private static instance: PostgresConfig | null = null;
+  protected static instance: PostgresConfig | null = null;
 
   protected readonly username: string;
   protected readonly password: string;
