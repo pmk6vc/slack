@@ -5,10 +5,12 @@ services:
     ports: ["${COORDINATOR_EXTERNAL_PORT:-5432}:5432"]
     labels: ["com.citusdata.role=Master"]
     environment: &AUTH
-      POSTGRES_USER: "${POSTGRES_USER:-postgres}"
+      POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      PGUSER: "${POSTGRES_USER:-postgres}"
+      PGUSER: "${POSTGRES_USER}"
       PGPASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      PGDATABASE: "${POSTGRES_DB}"
       POSTGRES_HOST_AUTH_METHOD: "${POSTGRES_HOST_AUTH_METHOD:-trust}"
   worker1:
     image: "citusdata/citus:13.0.3"
