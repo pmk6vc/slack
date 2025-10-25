@@ -3,7 +3,7 @@ import PostgresConfigFactory from "./db/PostgresConfigFactory.js";
 
 const pgConfig = await PostgresConfigFactory.getPostgresConfig();
 const app = buildApp(pgConfig);
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+const port = Number(process.env.CHAT_SERVICE_PORT!);
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
