@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
-    "@testcontainers/postgresql": "^11.7.2",
     "@types/express": "^5.0.3",
     "@types/node": "^24.8.1",
     "@types/supertest": "^2.0.12",
@@ -41,7 +40,6 @@
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
-    "node-pg-migrate": "^8.0.3",
     "nodemon": "^3.1.10",
     "prettier": "3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
