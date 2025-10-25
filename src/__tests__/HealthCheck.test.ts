@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
 import request from "supertest";
+import { describe, expect, it } from "vitest";
 import { buildApp } from "../app.js";
 
 // Build a minimal app instance without starting testcontainer — ping endpoint doesn't need DB

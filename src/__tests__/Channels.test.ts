@@ -1,11 +1,13 @@
-import { beforeAll, afterAll, describe, it, expect } from "vitest";
 import request from "supertest";
-import { setupTestDb, teardownTestDb, getApp, getPool } from "./TestDbFixture";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { getApp, getPool, setupTestDb, teardownTestDb } from "./TestDbFixture";
 
 beforeAll(async () => {
   await setupTestDb();
   const pool = getPool();
-  await pool.query(`INSERT INTO channels (channel_id, name) VALUES (uuid_generate_v4(), 'general')`);
+  await pool.query(
+    `INSERT INTO channels (channel_id, name) VALUES (uuid_generate_v4(), 'general')`,
+  );
 });
 
 afterAll(async () => {
