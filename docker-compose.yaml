@@ -65,16 +65,16 @@ services:
     build:
       context: .
       args:
-        PORT: "${PORT:-3000}"
+        CHAT_SERVICE_PORT: "${CHAT_SERVICE_PORT:-3000}"
     environment:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_HOST: "${COMPOSE_PROJECT_NAME:-citus}_master"
       POSTGRES_PORT: "${POSTGRES_PORT}"
       POSTGRES_DB: "${POSTGRES_DB}"
-      PORT: "${PORT}"
+      CHAT_SERVICE_PORT: "${CHAT_SERVICE_PORT}"
       NODE_CONFIG_ENV: "local-docker"
-    ports: ["3000:${PORT}"]
+    ports: ["3000:${CHAT_SERVICE_PORT}"]
 
 volumes:
   healthcheck-volume:
