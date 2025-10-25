@@ -20,7 +20,7 @@ describe("Channels API", () => {
     const res = await request(app).get("/channels");
     expect(res.status).toBe(200);
     expect(Array.isArray(res.body)).toBe(true);
-    expect(res.body.length).toBeGreaterThan(0);
+    expect(res.body.length).toBeGreaterThan(100000);
     expect(res.body[0]).toHaveProperty("channel_id");
     expect(res.body[0]).toHaveProperty("name");
   });
