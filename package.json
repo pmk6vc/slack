@@ -12,24 +12,25 @@
     "prebuild": "npm run prettier:check && npm run lint",
     "build": "tsc",
     "migrate": "node-pg-migrate",
-    "migrate-up:docker": "dotenv npm run migrate up",
-    "migrate-down:docker": "dotenv npm run migrate down 99999",
+    "migrate-up:docker": "npm run migrate up",
+    "migrate-down:docker": "npm run migrate down 99999",
     "prestart": "npm run build",
     "start": "node .",
     "start:docker": "docker compose -p slack up --build --force-recreate --detach",
-    "prepare": "husky"
+    "prepare": "if [ \"$HUSKY\" != \"0\" ]; then husky; else echo 'Ignoring Husky in CI'; fi"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@testcontainers/postgresql": "^11.7.2",
     "@types/pg": "^8.15.5",
     "express": "^5.1.0",
+    "node-pg-migrate": "^8.0.3",
     "pg": "^8.16.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
-    "@testcontainers/postgresql": "^11.7.2",
     "@types/express": "^5.0.3",
     "@types/node": "^24.8.1",
     "dotenv": "^17.2.3",
@@ -37,7 +38,6 @@
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
-    "node-pg-migrate": "^8.0.3",
     "nodemon": "^3.1.10",
     "prettier": "3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
