@@ -61,7 +61,7 @@ services:
   chat-service:
     container_name: "${COMPOSE_PROJECT_NAME:-slack}_chat_service"
     image: "chat-service:latest"
-    depends_on: [manager, db-migrations]
+    depends_on: [db-migrations]
     build:
       context: .
       args:
