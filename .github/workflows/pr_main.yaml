@@ -34,4 +34,4 @@ jobs:
           node-version: 22.20.0
       - run: npm ci
       - name: Run tests
-        run: npm test -- --run --timeout=60000
+        run: npm test -- --run
