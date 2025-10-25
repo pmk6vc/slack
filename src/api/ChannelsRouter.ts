@@ -1,19 +1,71 @@
 import { Request, Response, Router } from "express";
 import PostgresConfig from "../db/PostgresConfig";
 
+function encodeCursor(channelId: string) {
+  return Buffer.from(JSON.stringify({ channel_id: channelId })).toString(
+    "base64",
+  );
+}
+
+function decodeCursor(cursor: string) {
+  try {
+    const decoded = Buffer.from(cursor, "base64").toString("utf8");
+    const parsed = JSON.parse(decoded) as { channel_id?: string };
+    return parsed.channel_id ?? null;
+  } catch (err) {
+    return null;
+  }
+}
+
 export default function createChannelsRouter(config: PostgresConfig): Router {
   const router = Router();
 
-  // GET / -> returns all channels
-  router.get("/", async (_req: Request, res: Response) => {
-    try {
-      const pool = config.getPool();
-      const { rows } = await pool.query("SELECT * FROM channels");
-      res.json(rows);
-    } catch (err) {
-      console.error("Failed to fetch channels:", err);
-      res.status(500).json({ error: "Failed to fetch channels" });
+  // GET / -> returns channels with cursor-based pagination by channel_id
+  router.get("/", async (req: Request, res: Response) => {
+    // Extract last visited cursor
+    const cursorRaw =
+      typeof req.query.cursor === "string" ? req.query.cursor : undefined;
+    let afterChannelId: string | null = null;
+    if (cursorRaw) {
+      afterChannelId = decodeCursor(cursorRaw);
+      if (!afterChannelId) {
+        return res.status(400).json({ error: "Invalid cursor" });
+      }
     }
+
+    // Get raw results
+    const pageLimit = 50;
+    let rows;
+    if (afterChannelId) {
+      const query = `
+        SELECT * FROM channels
+        WHERE channel_id > $1::uuid
+        ORDER BY channel_id ASC
+        LIMIT $2
+      `;
+      const result = await config
+        .getPool()
+        .query(query, [afterChannelId, pageLimit + 1]);
+      rows = result.rows;
+    } else {
+      const query = `
+        SELECT * FROM channels
+        ORDER BY channel_id ASC
+        LIMIT $1
+      `;
+      const result = await config.getPool().query(query, [pageLimit + 1]);
+      rows = result.rows;
+    }
+
+    // Trim to page limit and set next cursor if there are more rows
+    let nextCursor: string | null = null;
+    if (rows.length > pageLimit) {
+      rows = rows.slice(0, pageLimit);
+      const last = rows[rows.length - 1];
+      nextCursor = encodeCursor(last.channel_id);
+    }
+    const hasMore: boolean = Boolean(nextCursor);
+    return res.json({ data: rows, nextCursor, hasMore });
   });
 
   return router;
