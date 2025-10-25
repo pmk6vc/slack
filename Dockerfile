@@ -10,8 +10,8 @@ RUN npm run build
 FROM node:25-alpine AS runtime
 WORKDIR /app
 
-# build-time default, can be overridden at build or run time
-ARG CHAT_SERVICE_PORT=3000
+# Port argument and exposure
+ARG CHAT_SERVICE_PORT
 ENV CHAT_SERVICE_PORT=${CHAT_SERVICE_PORT}
 EXPOSE ${CHAT_SERVICE_PORT}
 
