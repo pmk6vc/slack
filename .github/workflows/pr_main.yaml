@@ -24,3 +24,17 @@ jobs:
           node-version: 22.20.0
       - run: npm install
       - run: npm run lint
+
+  unit-tests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.20.0
+      - run: npm ci
+      - name: Run tests
+        run: npm test -- --run
+        env:
+          CI: true
