@@ -33,10 +33,21 @@ export default function createChannelsRouter(config: PostgresConfig): Router {
       }
     }
 
+    // Extract requested page limit
+    let pageLimit = 50;
+    const limitRaw =
+      typeof req.query.limit === "string" ? req.query.limit : undefined;
+    if (limitRaw) {
+      const parsedLimit = parseInt(limitRaw, 10);
+      if (isNaN(parsedLimit) || parsedLimit <= 0) {
+        return res.status(400).json({ error: "Invalid limit" });
+      }
+      pageLimit = Math.min(parsedLimit, 50);
+    }
+
     // TODO: Add filtering, e.g., by channel name, creation date, etc.
-    // TODO: Add query param for page limit and upper bound to 50
     // Get raw results
-    const pageLimit = 50;
+
     let rows;
     if (afterChannelId) {
       const query = `
