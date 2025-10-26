@@ -12,7 +12,7 @@ function decodeCursor(cursor: string) {
     const decoded = Buffer.from(cursor, "base64").toString("utf8");
     const parsed = JSON.parse(decoded) as { channel_id?: string };
     return parsed.channel_id ?? null;
-  } catch (err) {
+  } catch {
     return null;
   }
 }
@@ -33,6 +33,8 @@ export default function createChannelsRouter(config: PostgresConfig): Router {
       }
     }
 
+    // TODO: Add filtering, e.g., by channel name, creation date, etc.
+    // TODO: Add query param for page limit and upper bound to 50
     // Get raw results
     const pageLimit = 50;
     let rows;
