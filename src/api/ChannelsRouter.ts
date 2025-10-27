@@ -47,7 +47,6 @@ export default function createChannelsRouter(config: PostgresConfig): Router {
 
     // TODO: Add filtering, e.g., by channel name, creation date, etc.
     // Get raw results
-
     let rows;
     if (afterChannelId) {
       const query = `
